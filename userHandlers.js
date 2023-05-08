@@ -1,15 +1,31 @@
 const database = require("./database");
 
 const getUsers = (req, res) => {
-  database
-    .query("select * from users")
-    .then(([users]) => {
-      res.json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error retrieving data from database");
-    });
+    let sql = "SELECT * FROM users";
+    const sqlValues = [];
+
+    if (req.query.language != null) {
+        sql += " WHERE language = ?";
+        sqlValues.push(req.query.language);
+
+        if (req.query.city != null) {
+            sql += " AND city = ?";
+            sqlValues.push(req.query.city);
+        }
+    } else if (req.query.city != null) {
+        sql += " WHERE city = ?";
+        sqlValues.push(req.query.city);
+    }
+
+    database
+        .query(sql, sqlValues)
+        .then(([users]) => {
+            res.json(users);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send("Error retrieving data from database");
+        });
 };
 
 const getUserById = (req, res) => {
