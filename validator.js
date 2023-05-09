@@ -9,15 +9,25 @@ const validateMovie = (req, res, next) => {
     }
     if (director == null) {
       errors.push({ field: "director", message: "This field is required" });
+    } else if (director.length >= 255) {
+      errors.push({ field: "director", message: "Should contain less than 255 characters" });
     }
     if (year == null) {
       errors.push({ field: "year", message: "This field is required" });
+    } else if (year.length >= 255) {
+      errors.push({ field: "year", message: "Should contain less than 255 characters" });
     }
     if (color == null) {
       errors.push({ field: "color", message: "This field is required" });
+    } else if (color.length >= 255) {
+      errors.push({ field: "color", message: "Should contain less than 255 characters" });
+    } else if (color != "1" && color != "0") {
+      errors.push({ field: "color", message: "Should contain 0 or 1"});
     }
     if (duration == null) {
       errors.push({ field: "duration", message: "This field is required" });
+    } else if (isNaN(duration)) {
+      errors.push({ field: "duration", message: "This field required a number"})
     }
    
     if (errors.length) {
