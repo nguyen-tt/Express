@@ -19,7 +19,7 @@ const { validateMovie } = require("./validator");
 
 const userHandlers = require("./userHandlers");
 const { validateUser } = require("./validator");
-const { hashPassword, verifyPassword, verifyToken } = require("./auth");
+const { hashPassword, verifyPassword, verifyToken} = require("./auth");
 
 // puclic routes
 app.get("/api/movies", movieHandlers.getMovies);

@@ -30,8 +30,8 @@ const getUserById = (req, res) => {
     });
 };
 
-const getUserByEmailWithPasswordAndPassToNext = (req,res) => {
-  const email = parseInt(req.params.email);
+const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
+  const { email } = req.body;
 
   database
     .query("select * from users where email = ?", [email])
