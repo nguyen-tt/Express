@@ -39,7 +39,7 @@ const validateMovie = (req, res, next) => {
 
 
 const validateUser = (req, res, next) => {
-    const { firstname, lastname, email, city, language } = req.body;
+    const { firstname, lastname, email, city, language, password } = req.body;
     const errors = [];
     const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
 
@@ -65,6 +65,9 @@ const validateUser = (req, res, next) => {
     }
     if (language.length >= 255) {
       errors.push({ field: "language", message: "Should contain less than 255 characters" });
+    }
+    if (password.length >= 255) {
+      errors.push({field: "Password", message: "Should contain less than 255 characters" });
     }
    
     if (errors.length) {
